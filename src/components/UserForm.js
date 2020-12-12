@@ -5,18 +5,45 @@ import Confirm from "./Confirm";
 import Success from "./Success";
 
 export class UserForm extends Component {
-  state = {
-    step: 1,
-    fullName: "",
-    regNum: "",
-    department: "",
-    email: "",
-    whatsappNum: "",
-    year: "",
-    domain: "",
-    skills: "",
-    workEx: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      step: 1,
+      fullName: "",
+      regNum: "",
+      department: "",
+      email: "",
+      whatsappNum: "",
+      year: "",
+      domain: {
+        RD: false,
+        RAS: false,
+        CES: false,
+        IAS: false,
+        PES: false,
+        WIE: false,
+        WAD: false,
+        SM: false,
+        MC: false,
+        CLP: false,
+      },
+      skills: "",
+      workEx: "",
+    };
+  }
+
+  // state = {
+  //   step: 1,
+  //   fullName: "",
+  //   regNum: "",
+  //   department: "",
+  //   email: "",
+  //   whatsappNum: "",
+  //   year: "",
+  //   domain: "",
+  //   skills: "",
+  //   workEx: "",
+  // };
 
   // Proceed to next step
   nextStep = () => {
@@ -24,6 +51,7 @@ export class UserForm extends Component {
     this.setState({
       step: step + 1,
     });
+    console.log(this.state);
   };
 
   // Go back to prev step
@@ -37,6 +65,20 @@ export class UserForm extends Component {
   // Handle fields change
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
+  };
+
+  handleCheck = (event) => {
+    this.setState({
+      domain: {
+        ...this.state.domain,
+        [event.target.name]: event.target.checked,
+      },
+    });
+    console.log(event.target.name + " " + event.target.checked);
+    // this.setState((prevState, props) => {
+    //   prevState.domain[event.target.value] = event.target.checked;
+    //   return prevState;
+    // });
   };
 
   render() {
@@ -79,6 +121,7 @@ export class UserForm extends Component {
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
+            handleCheck={this.handleCheck}
             values={values}
           />
         );

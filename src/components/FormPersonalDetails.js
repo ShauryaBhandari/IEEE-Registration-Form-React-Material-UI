@@ -31,29 +31,8 @@ export class FormPersonalDetails extends Component {
       },
     });
 
-    const state = {
-      RD: false,
-      RAS: false,
-      CES: false,
-      IAS: false,
-      PES: false,
-      WIE: false,
-      WAD: false,
-      SM: false,
-      MC: false,
-      CLP: false,
-    };
-
-    const handleCheck = (event) => {
-      this.setState({
-        ...state,
-        [event.target.name]: event.target.checked,
-      });
-    };
-
-    const { RD, RAS, CES, IAS, PES, WIE, WAD, SM, MC, CLP } = state;
-
-    const { values, handleChange } = this.props;
+    const { values, handleChange, handleCheck } = this.props;
+    const { RD, RAS, CES, IAS, PES, WIE, WAD, SM, MC, CLP } = values.domain;
 
     return (
       <MuiThemeProvider theme={theme}>
@@ -87,11 +66,7 @@ export class FormPersonalDetails extends Component {
                 />
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      checked={RAS}
-                      onChange={handleCheck}
-                      name="Robotics and Automation Society 👾"
-                    />
+                    <Checkbox checked={RAS} onChange={handleCheck} name="RAS" />
                   }
                   label="Robotics and Automation Society 👾"
                 />
@@ -187,8 +162,8 @@ export class FormPersonalDetails extends Component {
             <TextField
               placeholder="Previous Work Experience (Linkedin ID/Portfolio/Github/Dribble/Behance etc.)"
               label="Previous Work Experience"
-              onChange={handleChange("exp")}
-              defaultValue={values.exp}
+              onChange={handleChange("workEx")}
+              defaultValue={values.workEx}
               margin="normal"
               fullWidth
               color="grey"
