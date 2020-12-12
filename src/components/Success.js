@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import Confetti from 'react-confetti'
 
 export class Success extends Component {
   continue = e => {
@@ -19,14 +20,16 @@ export class Success extends Component {
     return (
       <MuiThemeProvider>
         <>
+          <Confetti/>
           <Dialog
             open
             fullWidth
             maxWidth='sm'
           >
             <AppBar title="Success" />
-            <h1>Thank You For Your Submission</h1>
-            <p>You will get an email with further instructions.</p>
+            <h1 style={{fontFamily:'Roboto', textAlign:'center'}} >Thank You For Your Submission</h1>
+            <p style={{fontFamily:'Roboto', textAlign:'center'}}>You will get an email with further instructions.</p>
+            <p style={{fontFamily:'Roboto', textAlign:'center'}}><a href='https://links.ieeesrmist.in' className='text-dark'>About Us</a></p>
           </Dialog>
         </>
       </MuiThemeProvider>

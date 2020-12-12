@@ -5,8 +5,10 @@
   "dependencies": {
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/styles": "^4.9.13",
     "react": "^16.13.1",
+    "react-confetti": "^6.0.0",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1"
   },

@@ -12,10 +12,28 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 
 export class FormPersonalDetails extends Component {
   continue = (e) => {
     e.preventDefault();
+    if(this.props.values.year===""){
+      this.props.handleError()
+      return
+    }
+    var flag = true
+    for(const x in this.props.values.domain){
+      if(this.props.values.domain[x]===true){
+        flag =false
+      }
+    }
+
+    if(flag){
+      this.props.handleError()
+      return
+    }
+
     this.props.nextStep();
   };
 
@@ -37,8 +55,13 @@ export class FormPersonalDetails extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <>
+          <Snackbar open={values.error} autoHideDuration={2000} onClose={()=>{this.props.handleError()}}>
+            <MuiAlert elevation={6} variant="filled" severity="error" style={{marginBottom:30}}>
+              Fill All The Fields
+            </MuiAlert>
+          </Snackbar>
           <Dialog open fullWidth maxWidth="md">
-            <FormControl>
+            <FormControl required>
               <InputLabel id="demo-simple-select-label">Year</InputLabel>
               <Select
                 placeholder="Enter Your Year"
@@ -130,33 +153,11 @@ export class FormPersonalDetails extends Component {
                     <Checkbox checked={CLP} onChange={handleCheck} name="CLP" />
                   }
                   label="Corporate, Logistics and Publicity 📢
-
                   "
                 />
               </FormGroup>
-            </FormControl>
-            <br />
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">
-                Rate your skills in the domain you have chosen
-              </InputLabel>
-              <Select
-                onChange={handleChange("skills")}
-                defaultValue={values.skills}
-                margin="normal"
-                fullWidth
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-              </Select>
+            <p style={{fontFamily:'Roboto', textAlign:'center', paddingTop:15, marginBottom:-30}}><a href='https://www.ieeesrmist.in/domains' target='_blank' className='text-dark'>About Domains</a></p>
+
             </FormControl>
             <br />
             <TextField
@@ -166,7 +167,7 @@ export class FormPersonalDetails extends Component {
               defaultValue={values.workEx}
               margin="normal"
               fullWidth
-              color="grey"
+              color="secondary"
             />
             <br />
             <Button color="secondary" variant="contained" onClick={this.back}>

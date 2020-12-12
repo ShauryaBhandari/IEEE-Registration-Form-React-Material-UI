@@ -29,21 +29,9 @@ export class UserForm extends Component {
       },
       skills: "",
       workEx: "",
+      error: false
     };
   }
-
-  // state = {
-  //   step: 1,
-  //   fullName: "",
-  //   regNum: "",
-  //   department: "",
-  //   email: "",
-  //   whatsappNum: "",
-  //   year: "",
-  //   domain: "",
-  //   skills: "",
-  //   workEx: "",
-  // };
 
   // Proceed to next step
   nextStep = () => {
@@ -51,7 +39,6 @@ export class UserForm extends Component {
     this.setState({
       step: step + 1,
     });
-    console.log(this.state);
   };
 
   // Go back to prev step
@@ -66,6 +53,10 @@ export class UserForm extends Component {
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
+
+  handleError = (e)=>{
+    this.setState({error: !this.state.error})
+  }
 
   handleCheck = (event) => {
     this.setState({
@@ -93,6 +84,7 @@ export class UserForm extends Component {
       domain,
       skills,
       workEx,
+      error
     } = this.state;
     const values = {
       fullName,
@@ -104,6 +96,7 @@ export class UserForm extends Component {
       domain,
       skills,
       workEx,
+      error
     };
 
     switch (step) {
@@ -112,6 +105,7 @@ export class UserForm extends Component {
           <FormUserDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
+            handleError={this.handleError}
             values={values}
           />
         );
@@ -122,6 +116,7 @@ export class UserForm extends Component {
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleCheck={this.handleCheck}
+            handleError={this.handleError}
             values={values}
           />
         );

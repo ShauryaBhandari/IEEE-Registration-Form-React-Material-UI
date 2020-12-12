@@ -8,9 +8,29 @@ import Button from "@material-ui/core/Button";
 export class Confirm extends Component {
   continue = (e) => {
     e.preventDefault();
-    // PROCESS FORM //
+    const form = new FormData()
+    form.append('Name', this.props.values.fullName)
+    form.append('Department', this.props.values.department)
+    form.append('Email', this.props.values.email)
+    form.append('Reg', this.props.values.regNum)
+    form.append('Phone', this.props.values.whatsappNum)
+    form.append('Experience', this.props.values.workEx)
+    form.append('Year', this.props.values.year)
+    var domains = []
+    for(const x in this.props.values.domain){
+      if(this.props.values.domain[x]===true){
+        domains.push(x)
+      }
+    }
+    form.append("Domains",JSON.stringify(domains).substring(1,JSON.stringify(domains).length-1))
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbwITWD5ElRcRdnWkgrDZNw3C3yDSl0EyTZCbI4Q2RUo-nHXqh-i/exec";
+    fetch(scriptURL, { method: "POST", body: form })
+      .then((response) => {
+      })
+      .catch((error) => console.error("Error!", error.message));      
     this.props.nextStep();
-  };
+    };
 
   back = (e) => {
     e.preventDefault();
@@ -25,8 +45,7 @@ export class Confirm extends Component {
         department,
         email,
         whatsappNum,
-        year,
-        skills,
+        year
       },
     } = this.props;
     return (
@@ -59,9 +78,6 @@ export class Confirm extends Component {
 
               <ListItem>
                 <ListItemText primary="Year" secondary={year} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Skill Rating" secondary={skills} />
               </ListItem>
             </List>
             <br />
