@@ -29,7 +29,8 @@ export class UserForm extends Component {
       },
       skills: "",
       workEx: "",
-      error: false
+      error: false,
+      errorValue: ""
     };
   }
 
@@ -52,6 +53,10 @@ export class UserForm extends Component {
   // Handle fields change
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
+  };
+
+  handleErrorValue = (e) => {
+    this.setState({ errorValue: e});
   };
 
   handleError = (e)=>{
@@ -84,7 +89,8 @@ export class UserForm extends Component {
       domain,
       skills,
       workEx,
-      error
+      error,
+      errorValue
     } = this.state;
     const values = {
       fullName,
@@ -96,7 +102,8 @@ export class UserForm extends Component {
       domain,
       skills,
       workEx,
-      error
+      error,
+      errorValue
     };
 
     switch (step) {
@@ -107,6 +114,7 @@ export class UserForm extends Component {
             handleChange={this.handleChange}
             handleError={this.handleError}
             values={values}
+            handleErrorValue={this.handleErrorValue}
           />
         );
       case 2:
